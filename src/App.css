@@ -1,3 +1,7 @@
-.App {
-  text-align: center;
+.Container {
+  min-height: 100vh;
+  padding: 0 8%;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+  background: #f9f9f9;
 }
