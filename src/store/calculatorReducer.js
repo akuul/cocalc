@@ -19,17 +19,19 @@ const calculatorReducer = createSlice({
   reducers: {
     setCo2Amount(state, action) {
       state.co2Amount = action.payload;
-      if (action.payload >= 251) {
-        [state.co2Cof.regCof, state.co2Cof.useCof] = [3, 0.36];
-      } else if (action.payload <= 250 && action.payload >= 201) {
-        [state.co2Cof.regCof, state.co2Cof.useCof] = [2.2, 0.28];
-      } else if (action.payload <= 200 && action.payload >= 161) {
-        [state.co2Cof.regCof, state.co2Cof.useCof] = [1.5, 0.19];
-      } else if (action.payload <= 160 && action.payload >= 131) {
-        [state.co2Cof.regCof, state.co2Cof.useCof] = [1.1, 0.14];
-      } else {
-        [state.co2Cof.regCof, state.co2Cof.useCof] = [0, 0];
-      }
+      action.payload >= 251 &&
+        ([state.co2Cof.regCof, state.co2Cof.useCof] = [3, 0.36]);
+      action.payload <= 250 &&
+        action.payload >= 201 &&
+        ([state.co2Cof.regCof, state.co2Cof.useCof] = [2.2, 0.28]);
+      action.payload <= 200 &&
+        action.payload >= 161 &&
+        ([state.co2Cof.regCof, state.co2Cof.useCof] = [1.5, 0.19]);
+      action.payload <= 160 &&
+        action.payload >= 131 &&
+        ([state.co2Cof.regCof, state.co2Cof.useCof] = [1.1, 0.14]);
+      action.payload <= 130 &&
+        ([state.co2Cof.regCof, state.co2Cof.useCof] = [0, 0]);
     },
     setEuroStand(state, action) {
       state.euroStand = action.payload;
