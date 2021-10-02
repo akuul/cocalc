@@ -4,7 +4,7 @@ const initialState = {
   co2PriceIs: 0,
   regPriceIs: 0,
   euroStand: '',
-  co2Amount: 0,
+  co2Amount: '',
   co2Cof: { regCof: 0, useCof: 0 },
   carType: {
     diesel: { checked: false, Euro6: 1.7, Euro5: 2, Euro43: 2.3, Euro21: 2.5 },

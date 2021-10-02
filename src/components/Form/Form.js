@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { calculateCost } from '../../store/calculatorReducer';
 
 import FormCheckbox from '../Checkbox/FormCheckbox';
@@ -8,6 +8,10 @@ import { Box, Button } from '@mui/material';
 
 const FullForm = () => {
   const dispatch = useDispatch();
+  const co2Amount = useSelector((state) => state.calculator.co2Amount);
+  const euroS = useSelector((state) => state.calculator.euroStand);
+
+  const disableBtn = !(co2Amount === '') && !(euroS === '');
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
@@ -26,6 +30,7 @@ const FullForm = () => {
       <FormCheckbox />
       <FormInputs />
       <Button
+        disabled={!disableBtn}
         size='large'
         type='submit'
         sx={{ mt: 3, mb: 5 }}
