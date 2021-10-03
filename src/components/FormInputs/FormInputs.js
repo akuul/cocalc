@@ -27,6 +27,7 @@ const FormInputs = () => {
           autoWidth
           onChange={(e) => dispatch(setEuroStand(e.target.value))}
         >
+          <MenuItem value={0}>None</MenuItem>
           <MenuItem value={'Euro6'}>Euro 6</MenuItem>
           <MenuItem value={'Euro5'}>Euro 5</MenuItem>
           <MenuItem value={'Euro43'}>Euro 4-3</MenuItem>
@@ -39,7 +40,6 @@ const FormInputs = () => {
         id='co2value'
         name='co2value'
         sx={{ px: 2 }}
-        error={false}
         endAdornment={<InputAdornment position='end'>CO2 g/km</InputAdornment>}
       />
     </>
