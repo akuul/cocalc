@@ -1,6 +1,6 @@
 import { Container, CssBaseline, Box } from '@mui/material';
 
-const Layout = (props) => {
+const Layout = ({ children }) => {
   return (
     <Container
       sx={{
@@ -18,7 +18,7 @@ const Layout = (props) => {
           py: 4,
         }}
       >
-        {props.children}
+        {children}
       </Box>
     </Container>
   );

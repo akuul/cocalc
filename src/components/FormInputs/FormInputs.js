@@ -9,10 +9,13 @@ import {
   Select,
 } from '@mui/material';
 
-import { setEuroStand, setCo2Amount } from '../../store/calculatorReducer.js';
+import {
+  setEuroStandard,
+  setCo2Amount,
+} from '../../store/calculatorReducer.js';
 
 const FormInputs = () => {
-  const euroS = useSelector((state) => state.calculator.euroStand);
+  const euroStandard = useSelector((state) => state.calculator.euroStandard);
   const dispatch = useDispatch();
 
   return (
@@ -23,9 +26,9 @@ const FormInputs = () => {
           labelId='eurstand'
           id='eurstand'
           label='Euro Standartas'
-          value={euroS}
+          value={euroStandard}
           autoWidth
-          onChange={(e) => dispatch(setEuroStand(e.target.value))}
+          onChange={(e) => dispatch(setEuroStandard(e.target.value))}
         >
           <MenuItem value={0}>None</MenuItem>
           <MenuItem value={'Euro6'}>Euro 6</MenuItem>
@@ -40,6 +43,7 @@ const FormInputs = () => {
         id='co2value'
         name='co2value'
         sx={{ px: 2 }}
+        inputProps={{ maxLength: 3 }}
         endAdornment={<InputAdornment position='end'>CO2 g/km</InputAdornment>}
       />
     </>

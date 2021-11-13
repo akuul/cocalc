@@ -2,13 +2,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { FormGroup, FormControlLabel, Checkbox } from '@mui/material';
 import { setCarType } from '../../store/calculatorReducer';
 
-let label;
-
 const FormCheckbox = () => {
   const carType = useSelector((state) => state.calculator.carType);
   const dispatch = useDispatch();
 
   const checkboxlist = [];
+  let label;
 
   for (const key in carType) {
     key === 'diesel' && (label = 'Dyzelinas');

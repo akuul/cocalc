@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  co2PriceIs: 0,
-  regPriceIs: 0,
-  euroStand: '',
+  usagePriceIs: 0,
+  registrationPriceIs: 0,
+  euroStandard: '',
   co2Amount: '',
-  co2Cof: { regCof: 0, useCof: 0 },
+  co2Coefficient: { registrationCof: 0, useCof: 0 },
   carType: {
     diesel: { checked: false, Euro6: 1.7, Euro5: 2, Euro43: 2.3, Euro21: 2.5 },
     petrol: { checked: false, Euro6: 0.9, Euro5: 1, Euro43: 1.1, Euro21: 1.4 },
@@ -19,24 +19,30 @@ const calculatorReducer = createSlice({
   reducers: {
     setCo2Amount(state, action) {
       state.co2Amount = action.payload;
-      action.payload >= 251 &&
-        ([state.co2Cof.regCof, state.co2Cof.useCof] = [3, 0.36]);
+      //Set correct Co2 and registration coefficients (registrationCof, useCof) depending on Co2Amount value.
+      let [regCof, useCof] = [0, 0];
+      action.payload >= 251 && ([regCof, useCof] = [3, 0.36]);
       action.payload <= 250 &&
         action.payload >= 201 &&
-        ([state.co2Cof.regCof, state.co2Cof.useCof] = [2.2, 0.28]);
+        ([regCof, useCof] = [2.2, 0.28]);
       action.payload <= 200 &&
         action.payload >= 161 &&
-        ([state.co2Cof.regCof, state.co2Cof.useCof] = [1.5, 0.19]);
+        ([regCof, useCof] = [1.5, 0.19]);
       action.payload <= 160 &&
         action.payload >= 131 &&
-        ([state.co2Cof.regCof, state.co2Cof.useCof] = [1.1, 0.14]);
-      action.payload <= 130 &&
-        ([state.co2Cof.regCof, state.co2Cof.useCof] = [0, 0]);
+        ([regCof, useCof] = [1.1, 0.14]);
+      action.payload <= 130 && ([regCof, useCof] = [0, 0]);
+
+      [state.co2Coefficient.registrationCof, state.co2Coefficient.useCof] = [
+        regCof,
+        useCof,
+      ];
     },
-    setEuroStand(state, action) {
-      state.euroStand = action.payload;
+    setEuroStandard(state, action) {
+      state.euroStandard = action.payload;
     },
     setCarType(state, action) {
+      //Allow a single checkbox to be checked.
       for (const key in state.carType) {
         key === action.payload
           ? (state.carType[key].checked = !state.carType[key].checked)
@@ -46,18 +52,20 @@ const calculatorReducer = createSlice({
     calculateCost(state) {
       for (const key in state.carType) {
         if (state.carType[key].checked) {
-          const euroStand = state.euroStand;
-          const euroStandCof = state.carType[key][euroStand];
-          state.regPriceIs =
-            state.co2Amount * state.co2Cof.regCof * euroStandCof;
-          state.co2PriceIs =
-            state.co2Amount * state.co2Cof.useCof * euroStandCof;
+          const euroStandard = state.euroStandard;
+          const euroStandCof = state.carType[key][euroStandard];
+          state.registrationPriceIs =
+            state.co2Amount *
+            state.co2Coefficient.registrationCof *
+            euroStandCof;
+          state.usagePriceIs =
+            state.co2Amount * state.co2Coefficient.useCof * euroStandCof;
         }
       }
     },
   },
 });
 
-export const { setEuroStand, setCo2Amount, setCarType, calculateCost } =
+export const { setEuroStandard, setCo2Amount, setCarType, calculateCost } =
   calculatorReducer.actions;
 export default calculatorReducer.reducer;

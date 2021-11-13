@@ -9,9 +9,8 @@ import { Box, Button } from '@mui/material';
 const FullForm = () => {
   const dispatch = useDispatch();
   const co2Amount = useSelector((state) => state.calculator.co2Amount);
-  const euroS = useSelector((state) => state.calculator.euroStand);
-
-  const disableBtn = !(co2Amount === '') && !(euroS === '');
+  const euroStandard = useSelector((state) => state.calculator.euroStandard);
+  const disableBtn = !(co2Amount === '') && !(euroStandard === '');
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
